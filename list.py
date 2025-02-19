@@ -16,11 +16,11 @@ data = load_json('data.json')
 button_set = (327,80)
 button_size = (60,30)
 
-class SecondaryWindow(Qw.QMainWindow):
+class AddList(Qw.QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle("サブアプリ")
+        self.setWindowTitle("リスト名の変更")  # ウィンドウのタイトル
         self.setGeometry(150, 150, 540, 120)  # ウィンドウの位置とサイズ
         
         # 何かシンプルなラベルを追加
@@ -63,6 +63,6 @@ class SecondaryWindow(Qw.QMainWindow):
 
 if __name__ == '__main__':
     app = Qw.QApplication(sys.argv)
-    main_window = SecondaryWindow()
+    main_window = AddList()
     main_window.show()
     sys.exit(app.exec())

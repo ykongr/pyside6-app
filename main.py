@@ -27,13 +27,16 @@ class MainWindow(Qw.QMainWindow):
     self.btn_list.setGeometry(10,10,100,40)
     self.btn_list.clicked.connect(self.btn_list_clicked)
 
+    self.btn_add_main = Qw.QPushButton('メイン要素を追加',self)
+    self.btn_add_main.setGeometry(120,10,100,40)
+    self.btn_add_main.clicked.connect(self.btn_add_main_clicked)
 
-    self.btn_add = Qw.QPushButton('要素を追加',self)
-    self.btn_add.setGeometry(120,10,100,40)
+    self.btn_add = Qw.QPushButton('サブ要素を追加',self)
+    self.btn_add.setGeometry(230,10,100,40)
     # self.btn_add.clicked.connect(self.btn_add_clicked)
 
     self.btn_reload = Qw.QPushButton('更新',self)
-    self.btn_reload.setGeometry(230,10,100,40)
+    self.btn_reload.setGeometry(340,10,100,40)
     self.btn_reload.clicked.connect(self.btn_reload_clicked)
 
     self.tb_log = Qw.QTextEdit('',self)
@@ -48,31 +51,65 @@ class MainWindow(Qw.QMainWindow):
       self.list_name.setGeometry(20+i*100,50,100,20)
       self.list_name.show()
       self.labels.append(self.list_name)
+
+    for i in range(len(data["element_main"])):
+      self.el_main = Qw.QLabel(data["element_main"][i],self)
+      self.el_main.setStyleSheet("font-size: 14px; color: gray;")
+      self.el_main.setGeometry(20,75+i*15,100,15)
+      self.el_main.show()
+      for j in range(4):
+        self.el_sub = Qw.QLabel(data["element_sub"+f"{j+1}"][i],self)
+        self.el_sub.setStyleSheet("font-size: 14px; color: gray;")
+        self.el_sub.setGeometry(120+j*100,75+i*15,100,15)
+        self.el_sub.show()
       
 
   def btn_list_clicked(self):
-    subprocess.Popen([sys.executable, 'sab.py'])
+    subprocess.Popen([sys.executable, 'list.py'])
+
+  def btn_add_main_clicked(self):
+    subprocess.Popen([sys.executable, 'element_main.py'])
 
   def btn_reload_clicked(self):
     self.update_labels()
+    self.updata_element()
+  
 
   def update_labels(self):
     data = load_json('data.json')
-    print(data["list_data"])
 
     for i in range(len(data["list_data"])):
       blank = Qw.QLabel("                    ",self)
+      blank.setStyleSheet("background-color: white;")
+      blank.setGeometry(20 + i * 100, 50, 100, 20)
       new_label = Qw.QLabel(data["list_data"][i], self)
       new_label.setStyleSheet("font-size: 16px; color: gray;")
-      blank.setStyleSheet("background-color: white;font-size: 16px; color: gray;")
-      blank.setGeometry(20 + i * 100, 50, 100, 20)
       new_label.setGeometry(20 + i * 100, 50, 100, 20)
       blank.show()
       new_label.show()
 
+  def updata_element(self):
+    data = load_json('data.json')
+    
+    for i in range(len(data["element_main"])):
+      blank = Qw.QLabel("                    ",self)
+      blank.setStyleSheet("background-color: white;")
+      blank.setGeometry(20,75+i*15,100,15)
+      new_el_main = Qw.QLabel(data["element_main"][i],self)
+      new_el_main.setStyleSheet("font-size: 14px; color: gray;")
+      new_el_main.setGeometry(20,75+i*15,100,15)
+      blank.show()
+      new_el_main.show()
+      for j in range(4):
+        blank = Qw.QLabel("                    ",self)
+        blank.setStyleSheet("background-color: white;")
+        blank.setGeometry(120+j*100,75+i*15,100,15)
+        new_el_sub = Qw.QLabel(data["element_sub"+f"{j+1}"][i],self)
+        new_el_sub.setStyleSheet("font-size: 14px; color: gray;")
+        new_el_sub.setGeometry(120+j*100,75+i*15,100,15)
+        blank.show()
+        new_el_sub.show()
 
-      
-      
 
 if __name__ == '__main__':
   app = Qw.QApplication(sys.argv)
