@@ -1,5 +1,4 @@
 import sys
-import PySide6.QtCore as Qc
 import PySide6.QtWidgets as Qw
 import json
 
@@ -15,27 +14,28 @@ def save_json(filename, data):
 data = load_json('data.json')
 button_set = (327,140)
 button_size = (60,30)
+window_size = (540,220)
 
 class SubElement(Qw.QMainWindow):
     def __init__(self):
         super().__init__()
+
+        self.setFixedSize(window_size[0], window_size[1])
+        self.center()
+        self.setWindowTitle("サブ要素の追加")  
         
-        self.setWindowTitle("サブ要素の追加")  # ウィンドウのタイトル
-        self.setGeometry(250, 250, 540, 220)  # ウィンドウの位置とサイズ
-        
-        # 何かシンプルなラベルを追加
         label_list = Qw.QLabel("追加するリスト名", self)
         label_list.setGeometry(50, 20, 200, 30)
 
         self.combo_box_list = Qw.QComboBox(self)
-        self.combo_box_list.setGeometry(50, 50, 195, 30)  # 位置とサイズを指定
+        self.combo_box_list.setGeometry(50, 50, 195, 30)
         self.combo_box_list.addItems(data["list_data"][1:])
         
         label_main = Qw.QLabel("紐づけるメイン要素", self)
         label_main.setGeometry(50, 80, 200, 30)
 
         self.combo_box_main = Qw.QComboBox(self)
-        self.combo_box_main.setGeometry(50, 110, 195, 30)  # 位置とサイズを指定
+        self.combo_box_main.setGeometry(50, 110, 195, 30)
         self.combo_box_main.addItems(data["element_main"])
 
         self.input_field = Qw.QLineEdit(self)
@@ -61,9 +61,16 @@ class SubElement(Qw.QMainWindow):
             save_json('data.json', data)
             self.close()
 
-      
     def btn_cancel_clicked(self):
         self.close()
+
+    def center(self):
+        screen = Qw.QApplication.primaryScreen()
+        screen_rect = screen.geometry()
+        window_rect = self.geometry()
+        x = (screen_rect.width() - window_rect.width()) // 2
+        y = (screen_rect.height() - window_rect.height()) // 2
+        self.setGeometry(x, y-30, window_rect.width(), window_rect.height())
 
 if __name__ == '__main__':
     app = Qw.QApplication(sys.argv)

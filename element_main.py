@@ -1,5 +1,4 @@
 import sys
-import PySide6.QtCore as Qc
 import PySide6.QtWidgets as Qw
 import json
 
@@ -15,13 +14,15 @@ def save_json(filename, data):
 data = load_json('data.json')
 button_set = (80,80)
 button_size = (60,30)
+window_size = (290,120)
 
 class MainElement(Qw.QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle("メイン要素の追加")  # ウィンドウのタイトル
-        self.setGeometry(150, 150, 290, 120)  # ウィンドウの位置とサイズ
+        self.setFixedSize(window_size[0], window_size[1])
+        self.center()
+        self.setWindowTitle("メイン要素の追加")  
         
         # 何かシンプルなラベルを追加
         label = Qw.QLabel("追加するメイン要素", self)
@@ -49,10 +50,17 @@ class MainElement(Qw.QMainWindow):
           data["element_sub"+f"{i+1}"].append("---")
       save_json('data.json', data)
       self.close()
-
       
     def btn_cancel_clicked(self):
         self.close()
+
+    def center(self):
+        screen = Qw.QApplication.primaryScreen()
+        screen_rect = screen.geometry()
+        window_rect = self.geometry()
+        x = (screen_rect.width() - window_rect.width()) // 2
+        y = (screen_rect.height() - window_rect.height()) // 2
+        self.setGeometry(x, y-40, window_rect.width(), window_rect.height())
 
 
 
