@@ -33,7 +33,7 @@ class MainWindow(Qw.QMainWindow):
 
     self.btn_add = Qw.QPushButton('サブ要素を追加',self)
     self.btn_add.setGeometry(230,10,100,40)
-    # self.btn_add.clicked.connect(self.btn_add_clicked)
+    self.btn_add.clicked.connect(self.btn_add_sub_clicked)
 
     self.btn_reload = Qw.QPushButton('更新',self)
     self.btn_reload.setGeometry(340,10,100,40)
@@ -69,6 +69,9 @@ class MainWindow(Qw.QMainWindow):
 
   def btn_add_main_clicked(self):
     subprocess.Popen([sys.executable, 'element_main.py'])
+
+  def btn_add_sub_clicked(self):
+    subprocess.Popen([sys.executable, 'element_sub.py'])
 
   def btn_reload_clicked(self):
     self.update_labels()

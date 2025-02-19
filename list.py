@@ -33,8 +33,6 @@ class AddList(Qw.QMainWindow):
 
         self.input_field = Qw.QLineEdit(self)
         self.input_field.setPlaceholderText("リスト名を入力してください")
-        self.input_field.setVisible(False)
-        self.input_field.setVisible(True)
         self.input_field.setGeometry(295,50,190,28)
         self.input_field.setFocus()
 

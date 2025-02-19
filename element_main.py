@@ -16,7 +16,7 @@ data = load_json('data.json')
 button_set = (80,80)
 button_size = (60,30)
 
-class AddElement(Qw.QMainWindow):
+class MainElement(Qw.QMainWindow):
     def __init__(self):
         super().__init__()
         
@@ -29,7 +29,6 @@ class AddElement(Qw.QMainWindow):
 
         self.input_field = Qw.QLineEdit(self)
         self.input_field.setPlaceholderText("要素名を入力してください")
-        self.input_field.setVisible(True)
         self.input_field.setGeometry(50,50,190,28)
         self.input_field.setFocus()
 
@@ -59,6 +58,6 @@ class AddElement(Qw.QMainWindow):
 
 if __name__ == '__main__':
     app = Qw.QApplication(sys.argv)
-    main_window = AddElement()
+    main_window = MainElement()
     main_window.show()
     sys.exit(app.exec())
