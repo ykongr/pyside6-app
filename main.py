@@ -119,7 +119,7 @@ class MainWindow(Qw.QMainWindow):
 
   def on_text_changed(self, text):
     for i in range(len(data["element_main"])):
-      if text == data["element_main"][i] or text == data["element_sub1"][i] or text == data["element_sub2"][i] or text == data["element_sub3"][i] or text == data["element_sub4"][i] or text == data["list_data"][i]:
+      if text == data["element_main"][i] or text == data["element_sub1"][i] or text == data["element_sub2"][i] or text == data["element_sub3"][i] or text == data["element_sub4"][i]:
         col = Qw.QLabel("",self)
         col.setStyleSheet("background-color: #FFFF66;font-color: gray;")
         col.setGeometry(20,75+i*15,630,15)
